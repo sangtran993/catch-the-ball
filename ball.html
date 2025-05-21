@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Ball Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+        }
+        .game-heading {
+            color: #333;
+        }
+        #gameArea {
+            width: 500px;
+            height: 300px;
+            background-color: #fff;
+            border: 2px solid #333;
+            position: relative;
+            overflow: hidden;
+        }
+        #ball {
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="game-heading">Catch the Ball</h1>
+        <p>Score: <span id="score">0</span></p>
+        <div id="gameArea">
+            <div id="ball"></div>
+        </div>
+    </div>
+    <script>
+        const ball = document.getElementById("ball");
+        const scoreDisplay = document.getElementById("score");
+        let score = 0;
+
+        // Function to move the ball to a random position
+        function moveBall() {
+            const gameArea = document.getElementById("gameArea");
+            const maxX = gameArea.clientWidth - ball.clientWidth;
+            const maxY = gameArea.clientHeight - ball.clientHeight;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            ball.style.left = `${randomX}px`;
+            ball.style.top = `${randomY}px`;
+        }
+
+        // Increase score when the ball is clicked
+        ball.addEventListener("click", () => {
+            score++;
+            scoreDisplay.textContent = score;
+            moveBall();
+        });
+
+        // Move the ball every second
+        setInterval(() => {
+            moveBall();
+        }, 1000);
+
+        // Initial ball position
+        moveBall();
+    </script>
+</body>
+</html>
